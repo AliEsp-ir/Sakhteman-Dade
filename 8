@@ -1,0 +1,70 @@
+class StackBox:
+    def __init__(self, capacity=1000):
+        self.data = []
+        self.capacity = capacity
+
+    # --- عملیات اصلی ---
+    def push(self, value):
+        if len(self.data) >= self.capacity:
+            print("Stack overflow")
+            return
+        self.data.append(value)
+
+    def pop(self):
+        if not self.data:
+            print("Stack underflow")
+            return
+        return self.data.pop()
+
+    def top(self):
+        if not self.data:
+            print("Stack is empty")
+            return
+        return self.data[-1]
+
+    def size(self):
+        return len(self.data)
+
+    # --- جستجوها ---
+    # همه اندیس‌های شامل x
+    def find_all(self, x):
+        positions = []
+        for idx, val in enumerate(self.data):
+            if val == x:
+                positions.append(idx)
+        return positions
+
+    # اولین اندیس شامل x
+    def find_first(self, x):
+        for idx, val in enumerate(self.data):
+            if val == x:
+                return idx
+        return -1
+
+    # آخرین اندیس شامل x (روش معکوس)
+    def find_last(self, x):
+        for idx in range(len(self.data) - 1, -1, -1):
+            if self.data[idx] == x:
+                return idx
+        return -1
+
+    # جایگزینی مقدار x با y
+    def replace(self, x, y):
+        for idx in range(len(self.data)):
+            if self.data[idx] == x:
+                self.data[idx] = y
+
+
+# --- تست ---
+s = StackBox(10)
+s.push(57)
+s.push(126)
+s.push(-10)
+s.push(57)
+
+k = s.top()
+all_pos = s.find_all(57)
+first_pos = s.find_first(57)
+last_pos = s.find_last(57)
+
+s.replace(57, 100)
