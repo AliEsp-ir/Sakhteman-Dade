@@ -1,0 +1,67 @@
+from collections import deque
+
+# --- Breadth First Search ---
+def breadth_first_search(net, source):
+    seen = set()
+    pending = deque()
+    
+    pending.append(source)
+    seen.add(source)
+
+    while pending:
+        node = pending.popleft()
+        neighbors = net.get(node, [])
+        
+        for nxt in neighbors:
+            if nxt not in seen:
+                seen.add(nxt)
+                pending.append(nxt)
+
+    return seen
+
+
+# --- Depth First Search ---
+def depth_first_search(net, node, mark=None):
+    if mark is None:
+        mark = set()
+
+    mark.add(node)
+
+    for nxt in net.get(node, []):
+        if nxt not in mark:
+            depth_first_search(net, nxt, mark)
+
+    return mark
+
+
+# --- Selection-like Sort ---
+def simple_select_sort(arr):
+    data = arr[:]
+    result = []
+
+    for _ in range(len(data)):
+        smallest = data[0]
+        idx = 0
+
+        for i in range(1, len(data)):
+            if data[i] < smallest:
+                smallest = data[i]
+                idx = i
+
+        result.append(smallest)
+        data[idx] = float('inf')
+
+    return result
+
+
+# --- Bubble Sort ---
+def bubble_sort_v2(items):
+    n = len(items)
+    arr = items[:]
+
+    for end in range(n - 1, 0, -1):
+        for i in range(end):
+            if arr[i] > arr[i + 1]:
+                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+
+    return arr
