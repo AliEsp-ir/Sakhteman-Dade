@@ -1,0 +1,9 @@
+def count_iterations(num):
+    counter = 0
+    while num > 1:
+        num >>= 1   # divide by 2 using bit shift
+        counter += 1
+    return counter
+
+
+print(count_iterations(128)) 
