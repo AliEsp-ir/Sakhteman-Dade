@@ -1,0 +1,74 @@
+# --- Node درخت باینری ---
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+# --- تعداد برگ‌ها ---
+def count_leaves(root):
+    if root is None:
+        return 0
+    if root.left is None and root.right is None:
+        return 1
+    return count_leaves(root.left) + count_leaves(root.right)
+
+
+# --- تعداد گره‌های درجه 1 ---
+def count_degree_one(root):
+    if root is None:
+        return 0
+    count = 0
+    if (root.left is None) != (root.right is None):  # فقط یکی از بچه‌ها وجود دارد
+        count = 1
+    return count + count_degree_one(root.left) + count_degree_one(root.right)
+
+
+# --- تعداد گره‌های درجه 2 ---
+def count_degree_two(root):
+    if root is None:
+        return 0
+    count = 0
+    if root.left and root.right:  # هر دو بچه وجود دارد
+        count = 1
+    return count + count_degree_two(root.left) + count_degree_two(root.right)
+
+
+# --- مجموع داده‌های درخت ---
+def sum_tree(root):
+    if root is None:
+        return 0
+    return root.value + sum_tree(root.left) + sum_tree(root.right)
+
+
+# --- تعداد کل گره‌ها ---
+def count_nodes(root):
+    if root is None:
+        return 0
+    return 1 + count_nodes(root.left) + count_nodes(root.right)
+
+
+# --- پیمایش پیش‌سفارش ---
+def preorder(root):
+    if root is None:
+        return
+    print(root.value)
+    preorder(root.left)
+    preorder(root.right)
+
+
+# --- جستجوی مقدار ---
+def search_tree(root, target):
+    if root is None:
+        return False
+    if root.value == target:
+        return True
+    return search_tree(root.left, target) or search_tree(root.right, target)
+
+
+# --- پیدا کردن مقدار ماکزیمم ---
+def max_tree(root):
+    if root is None:
+        return float('-inf')  # توجه: کمینه مطلق برای مقایسه
+    return max(root.value, max_tree(root.left), max_tree(root.right))
