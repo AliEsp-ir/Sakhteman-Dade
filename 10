@@ -1,0 +1,102 @@
+# -----------------------------
+# Simple Queue (Array-based)
+# -----------------------------
+class LinearQueue:
+    def __init__(self, capacity=100):
+        self.data = [None] * capacity
+        self.head = -1
+        self.tail = -1
+        self.capacity = capacity
+
+    def enqueue(self, value):
+        if self.tail >= self.capacity - 1:
+            print("Queue overflow")
+            return
+
+        if self.head == -1:
+            self.head = 0
+            self.tail = 0
+        else:
+            self.tail += 1
+
+        self.data[self.tail] = value
+
+    def dequeue(self):
+        if self.head == -1:
+            print("Queue underflow")
+            return
+
+        item = self.data[self.head]
+
+        if self.head == self.tail:
+            self.head = -1
+            self.tail = -1
+        else:
+            self.head += 1
+
+        return item
+
+    def peek(self):
+        if self.head == -1:
+            return None
+        return self.data[self.head]
+
+
+# --- Test ---
+q = LinearQueue(3)
+q.enqueue(57)
+q.enqueue(32)
+q.enqueue(44)
+q.enqueue(39)   # overflow
+q.dequeue()
+q.enqueue(39)   # overflow
+
+
+# -----------------------------
+# Circular Queue
+# -----------------------------
+class CircularQueue:
+    def __init__(self, size):
+        self.buffer = [None] * size
+        self.size = size
+        self.front = -1
+        self.rear = -1
+
+    def is_empty(self):
+        return self.front == -1
+
+    def is_full(self):
+        return (self.rear + 1) % self.size == self.front
+
+    def enqueue(self, value):
+        if self.is_full():
+            print("Circular queue is full")
+            return
+
+        if self.is_empty():
+            self.front = 0
+            self.rear = 0
+        else:
+            self.rear = (self.rear + 1) % self.size
+
+        self.buffer[self.rear] = value
+
+    def dequeue(self):
+        if self.is_empty():
+            print("Circular queue is empty")
+            return
+
+        item = self.buffer[self.front]
+
+        if self.front == self.rear:
+            self.front = -1
+            self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.size
+
+        return item
+
+    def front_value(self):
+        if self.is_empty():
+            return None
+        return self.buffer[self.front]
