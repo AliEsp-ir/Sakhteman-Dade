@@ -1,0 +1,81 @@
+class CircularQueueV2:
+    def __init__(self, capacity=100):
+        self.buffer = [None] * capacity
+        self.capacity = capacity
+        self.front = -1
+        self.rear = -1
+
+    # --- وضعیت صف ---
+    def is_empty(self):
+        return self.front == -1
+
+    def is_full(self):
+        return (self.rear + 1) % self.capacity == self.front
+
+    # --- درج و حذف ---
+    def enqueue(self, value):
+        if self.is_full():
+            print("Queue is full")
+            return
+
+        if self.is_empty():
+            self.front = 0
+            self.rear = 0
+        else:
+            self.rear = (self.rear + 1) % self.capacity
+
+        self.buffer[self.rear] = value
+
+    def dequeue(self):
+        if self.is_empty():
+            print("Queue is empty")
+            return
+
+        item = self.buffer[self.front]
+
+        if self.front == self.rear:
+            self.front = -1
+            self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.capacity
+
+        return item
+
+    # --- مشاهده عناصر ---
+    def show_queue(self):
+        if self.is_empty():
+            print("Queue is empty")
+            return
+
+        i = self.front
+        while True:
+            print(self.buffer[i])
+            if i == self.rear:
+                break
+            i = (i + 1) % self.capacity
+
+    # --- جستجو و جایگزینی ---
+    def find(self, value):
+        if self.is_empty():
+            return -1
+
+        i = self.front
+        while True:
+            if self.buffer[i] == value:
+                return i
+            if i == self.rear:
+                break
+            i = (i + 1) % self.capacity
+        return -1
+
+    def replace(self, old_value, new_value):
+        if self.is_empty():
+            return
+
+        i = self.front
+        while True:
+            if self.buffer[i] == old_value:
+                self.buffer[i] = new_value
+            if i == self.rear:
+                break
+            i = (i + 1) % self.capacity
