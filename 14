@@ -1,0 +1,42 @@
+# ---------------------------
+# Fibonacci بازگشتی
+# ---------------------------
+def fibonacci(n):
+    if n == 1 or n == 2:
+        return 1
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+# --- مثال استفاده ---
+n = 10
+fib_sequence = [fibonacci(i) for i in range(1, n + 1)]
+print("Fibonacci sequence:", fib_sequence)
+
+
+# ---------------------------
+# ضرب ماتریسی ساده
+# ---------------------------
+def matrix_multiply(a, b):
+    n = len(a)
+    c = [[0 for _ in range(n)] for _ in range(n)]
+    
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                c[i][k] += a[i][j] * b[j][k]
+    
+    return c
+
+
+# ---------------------------
+# تابع بازگشتی نمونه
+# ---------------------------
+def recursive_test(x, y):
+    if x > y:
+        return x * y
+    return recursive_test(x, y - 2) + recursive_test(x - 1, y - 3) + 6
+
+
+# --- مثال استفاده ---
+result = recursive_test(3, 7)
+print("Result:", result)
