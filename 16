@@ -1,0 +1,13 @@
+# نسخه شخصی‌سازی‌شده
+counter = 0
+value = 5
+temp = 0
+extra = 10
+
+i = 0
+while i < n:
+    temp = extra
+    extra = counter + 6
+    i += 1
+
+counter += 2
